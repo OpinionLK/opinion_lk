@@ -63,6 +63,18 @@ flutter:
   assets:
      - assets/logo.svg
 
+  fonts:
+    - family: DM Sans
+      fonts:
+        - asset: fonts/DMSans-Regular.ttf
+        - asset: fonts/DMSans-Italic.ttf
+        - asset: fonts/DMSans-Light.ttf
+        - asset: fonts/DMSans-LightItalic.ttf
+        - asset: fonts/DMSans-Medium.ttf
+        - asset: fonts/DMSans-MediumItalic.ttf
+        - asset: fonts/DMSans-SemiBold.ttf
+        - asset: fonts/DMSans-SemiBoldItalic.ttf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
