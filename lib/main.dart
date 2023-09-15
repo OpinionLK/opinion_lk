@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:opinion_lk/routes/login_page.dart';
 import 'package:opinion_lk/routes/signup_page.dart';
+// import 'package:opinion_lk/routes/navbar.dart';
 
 
 void main() {
@@ -25,6 +26,13 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      // routing information
+      initialRoute: 'SplashScreen',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignupPage(),
+      },
+
       home: SplashScreen(),
     );
   }
@@ -40,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 4),
             () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomePage())));
   }
@@ -116,6 +124,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+            
             Container(
               height: 54.0,  // set height
               width: 206.0,  // set width
