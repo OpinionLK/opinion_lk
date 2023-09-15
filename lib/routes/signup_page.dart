@@ -22,7 +22,6 @@ Future<void> signupUser(BuildContext context, String firstName, String lastName,
   if (response.statusCode == 200) {
     // If the server returns a 200 OK response,
     // then parse the JSON.
-    Map<String, dynamic> jsonResponse = jsonDecode(response.body);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NavigationBarApp()),
