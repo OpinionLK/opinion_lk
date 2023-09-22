@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:opinion_lk/routes/surveys_grid.dart';
+import 'profile.dart';
+import 'coupons.dart';
+import 'saved.dart';
 
 /// Flutter code sample for [NavigationBar].
 
@@ -61,24 +65,23 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         Container(
-          color: Colors.red,
           alignment: Alignment.center,
-          child: const Text('Page 1'),
+          child: Surveylist(),
+          // child: Saved(),
         ),
         Container(
-          color: Colors.green,
           alignment: Alignment.center,
-          child: const Text('Page 2'),
+          child: const Saved(),
         ),
         Container(
           color: Colors.blue,
           alignment: Alignment.center,
-          child: const Text('Page 3'),
+          child: Coupons(),
         ),
         Container(
           color: Colors.grey,
           alignment: Alignment.center,
-          child: const Text('Page 4'),
+          child: Profile(),
         ),
       ][currentPageIndex],
     );

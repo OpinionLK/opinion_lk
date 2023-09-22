@@ -4,12 +4,18 @@ import 'dart:async';
 
 import 'package:opinion_lk/routes/login_page.dart';
 import 'package:opinion_lk/routes/signup_page.dart';
-// import 'package:opinion_lk/routes/navbar.dart';
-
+import 'package:opinion_lk/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,
         ).copyWith(
-          secondary: Color(0xFF00BFA6),  // your accent color
+          secondary: Color(0xFF00BFA6), // your accent color
         ),
         useMaterial3: true,
       ),
@@ -49,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
         Duration(seconds: 4),
-            () => Navigator.pushReplacement(
+        () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomePage())));
   }
 
@@ -57,7 +63,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SvgPicture.asset('assets/logo.svg', height: 40,), // replace with your logo asset
+        child: SvgPicture.asset(
+          'assets/logo.svg',
+          height: 40,
+        ), // replace with your logo asset
       ),
     );
   }
@@ -75,43 +84,41 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 100),
             Align(
               alignment: Alignment.topCenter,
-              child: SvgPicture.asset('assets/logo.svg', height: 40), 
+              child: SvgPicture.asset('assets/logo.svg', height: 40),
             ),
             SizedBox(height: 100),
             Text(
               'Welcome',
               style: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    ),
+                fontFamily: 'DM Sans',
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 30),
             Text(
               'It pays to have opinions',
               style: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
-                    ),
+                fontFamily: 'DM Sans',
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+              ),
               textAlign: TextAlign.center,
             ),
             // Spacer(),
             const SizedBox(height: 200),
             Container(
-              height: 54.0,  // set height
-              width: 206.0,  // set width
+              height: 54.0, // set height
+              width: 206.0, // set width
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF6C63FF),
                   foregroundColor: Colors.white,
-                  textStyle: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontSize: 16
-                    ),
+                  textStyle: TextStyle(fontFamily: 'DM Sans', fontSize: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // set border radius
+                    borderRadius:
+                        BorderRadius.circular(10), // set border radius
                   ),
                 ),
                 onPressed: () {
@@ -124,20 +131,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             Container(
-              height: 54.0,  // set height
-              width: 206.0,  // set width
+              height: 54.0, // set height
+              width: 206.0, // set width
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF00BFA6),
                   foregroundColor: Colors.white,
-                  textStyle: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontSize: 16
-                    ),
+                  textStyle: TextStyle(fontFamily: 'DM Sans', fontSize: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // set border radius
+                    borderRadius:
+                        BorderRadius.circular(10), // set border radius
                   ),
                 ),
                 onPressed: () {
