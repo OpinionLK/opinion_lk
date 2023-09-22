@@ -3,21 +3,44 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
 
 import 'package:opinion_lk/routes/login_page.dart';
+import 'package:opinion_lk/routes/main_app.dart';
 import 'package:opinion_lk/routes/signup_page.dart';
 import 'package:opinion_lk/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<bool> hasValidToken() async {
+  // check if token is valid
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? token = prefs.getString('token');
+
+  if (token == null) {
+    return false;
+  }
+
+  return true;
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Read token from shared pref
+  // if token is not null, set user provider
+
+  // check if logged in
+
   runApp(
-    ChangeNotifierProvider(
+    ChangeNotifierProvider<UserProvider>(
       create: (context) => UserProvider(),
-      child: MyApp(),
+      child: MyApp(await hasValidToken()),
     ),
   );
 }
 
-
 class MyApp extends StatelessWidget {
+  final bool isLoggedIn;
+  const MyApp(this.isLoggedIn, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,13 +56,15 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // routing information
-      initialRoute: 'SplashScreen',
+      initialRoute: isLoggedIn ? '/main-app' : '/login',
       routes: {
+        '/splash': (context) => SplashScreen(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
+        '/main-app': (context) => const MainApp(),
       },
 
-      home: SplashScreen(),
+      // home: SplashScreen(),
     );
   }
 }

@@ -3,9 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert'; //for jsonEncode
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:opinion_lk/routes/navbar.dart';
+import 'package:opinion_lk/routes/main_app.dart';
 
-Future<void> signupUser(BuildContext context, String firstName, String lastName, String email, String password) async {
+Future<void> signupUser(BuildContext context, String firstName, String lastName,
+    String email, String password) async {
   final response = await http.post(
     Uri.parse('http://10.0.2.2:3002/api/auth/signup'),
     headers: <String, String>{
@@ -22,10 +23,7 @@ Future<void> signupUser(BuildContext context, String firstName, String lastName,
   if (response.statusCode == 200) {
     // If the server returns a 200 OK response,
     // then parse the JSON.
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NavigationBarApp()),
-    );
+    Navigator.pushNamed(context, '/login');
   } else if (response.statusCode == 401) {
     Fluttertoast.showToast(
       msg: "Please check your details",
@@ -39,11 +37,9 @@ Future<void> signupUser(BuildContext context, String firstName, String lastName,
   }
 }
 
-
 class SignupPage extends StatefulWidget {
   _SignupPageState createState() => _SignupPageState();
 }
-
 
 class _SignupPageState extends State<SignupPage> {
   final TextEditingController _firstnameController = TextEditingController();
@@ -56,7 +52,7 @@ class _SignupPageState extends State<SignupPage> {
   String get firstName => _firstnameController.text;
   String get lastName => _lastnameController.text;
 
-  bool _isLoading = false; 
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +65,9 @@ class _SignupPageState extends State<SignupPage> {
             SizedBox(height: 100),
             Align(
               alignment: Alignment.topCenter,
-              child: SvgPicture.asset('assets/logo.svg', height: 40), // replace with your logo asset
-              ),
+              child: SvgPicture.asset('assets/logo.svg',
+                  height: 40), // replace with your logo asset
+            ),
             SizedBox(height: 40),
 
             Text(
@@ -94,9 +91,12 @@ class _SignupPageState extends State<SignupPage> {
                     data: Theme.of(context).copyWith(
                       primaryColor: Color(0xFF00BFA6), // app-green
                       inputDecorationTheme: InputDecorationTheme(
-                        labelStyle: TextStyle(color: Color(0xFF1B2559)), // black
+                        labelStyle:
+                            TextStyle(color: Color(0xFF1B2559)), // black
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFF00BFA6), width: 1.5), // app-green
+                          borderSide: BorderSide(
+                              color: Color(0xFF00BFA6),
+                              width: 1.5), // app-green
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
@@ -113,24 +113,30 @@ class _SignupPageState extends State<SignupPage> {
                       decoration: InputDecoration(
                         labelText: 'First Name',
                         enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF00BFA6), width: 1.5), // app-green
+                          borderSide: BorderSide(
+                              color: Color(0xFF00BFA6),
+                              width: 1.5), // app-green
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // You can adjust the space between the fields as needed.
+                SizedBox(
+                    width:
+                        20), // You can adjust the space between the fields as needed.
                 Expanded(
                   flex: 45,
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       primaryColor: Color(0xFF00BFA6), // app-green
                       inputDecorationTheme: InputDecorationTheme(
-                        labelStyle: TextStyle(color: Color(0xFF1B2559)), // black
+                        labelStyle:
+                            TextStyle(color: Color(0xFF1B2559)), // black
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFF00BFA6), width: 1.5), // app-green
+                          borderSide: BorderSide(
+                              color: Color(0xFF00BFA6),
+                              width: 1.5), // app-green
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
@@ -147,8 +153,9 @@ class _SignupPageState extends State<SignupPage> {
                       decoration: InputDecoration(
                         labelText: 'Last Name',
                         enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF00BFA6), width: 1.5), // app-green
+                          borderSide: BorderSide(
+                              color: Color(0xFF00BFA6),
+                              width: 1.5), // app-green
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
@@ -192,7 +199,9 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
 
-            SizedBox(height: 25,),
+            SizedBox(
+              height: 25,
+            ),
             // Password TextField
             Theme(
               data: Theme.of(context).copyWith(
@@ -227,7 +236,6 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
 
-
             SizedBox(height: 20.0),
 
             Container(
@@ -235,7 +243,10 @@ class _SignupPageState extends State<SignupPage> {
               width: 350, // set wid
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _isLoading ? Color.fromARGB(255, 164, 237, 227) : Color(0xFF00BFA6), // Change the button color when _isLoading is true
+                  backgroundColor: _isLoading
+                      ? Color.fromARGB(255, 164, 237, 227)
+                      : Color(
+                          0xFF00BFA6), // Change the button color when _isLoading is true
                   foregroundColor: Colors.white,
                   textStyle: TextStyle(fontFamily: 'DM Sans', fontSize: 16),
                   shape: RoundedRectangleBorder(
@@ -243,18 +254,29 @@ class _SignupPageState extends State<SignupPage> {
                         BorderRadius.circular(10), // set border radius
                   ),
                 ),
-                onPressed: _isLoading ? null : () async { // Disable the button if _isLoading is true
-                  setState(() {
-                    _isLoading = true; // Set _isLoading to true when the request is sent
-                  });
+                onPressed: _isLoading
+                    ? null
+                    : () async {
+                        // Disable the button if _isLoading is true
+                        setState(() {
+                          _isLoading =
+                              true; // Set _isLoading to true when the request is sent
+                        });
 
-                  await signupUser(context, firstName, lastName, email, password);
+                        await signupUser(
+                            context, firstName, lastName, email, password);
 
-                  setState(() {
-                    _isLoading = false; // Set _isLoading back to false when the response is received
-                  });
-                },
-                child: _isLoading ? CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA6))) : Text('Create account'), // Show a progress indicator if _isLoading is true
+                        setState(() {
+                          _isLoading =
+                              false; // Set _isLoading back to false when the response is received
+                        });
+                      },
+                child: _isLoading
+                    ? CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xFF00BFA6)))
+                    : Text(
+                        'Create account'), // Show a progress indicator if _isLoading is true
               ),
             ),
           ],
