@@ -123,11 +123,11 @@ class SurveyCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Text(survey.surveyPoints.toString()), 
-                    const Text('69'),
+                    // const Text('69'),
                     // save icon
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.bookmark_border),
+                      icon: Icon(Icons.navigate_next),
                     ),
                   ],
                 ),
