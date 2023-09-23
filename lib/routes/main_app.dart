@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:opinion_lk/models/survey.dart';
 import 'package:opinion_lk/models/user.dart';
+import 'package:opinion_lk/routes/surveys.dart';
 import 'package:opinion_lk/services/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,8 +104,8 @@ class _MainAppState extends State<MainApp> {
         ),
         body: <Widget>[
           Container(
-            alignment: Alignment.center,
-            child: const Saved(),
+            alignment: Alignment.topCenter,
+            child: SurveysPage(),
             // child: Saved(),
           ),
           Container(
