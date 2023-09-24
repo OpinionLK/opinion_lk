@@ -9,7 +9,7 @@ class AppColors {
 }
 
 class AppTextStyles {
-  static const headerStyle = TextStyle(fontSize: 24,fontFamily: 'DM Sans', fontWeight: FontWeight.bold);
+  static const header = TextStyle(fontSize: 24,fontFamily: 'DM Sans', fontWeight: FontWeight.bold);
   static const title = TextStyle(fontSize: 16, fontFamily: 'DM Sans', fontWeight: FontWeight.bold);
   static const normal = TextStyle(fontSize: 10,fontFamily: 'DM Sans');
   static const subtitle = TextStyle(fontSize: 14,fontFamily: 'DM Sans', fontWeight: FontWeight.bold);

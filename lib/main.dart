@@ -6,6 +6,7 @@ import 'package:opinion_lk/routes/login_page.dart';
 import 'package:opinion_lk/routes/main_app.dart';
 import 'package:opinion_lk/routes/signup_page.dart';
 import 'package:opinion_lk/providers/user_provider.dart';
+import 'package:opinion_lk/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       theme: ThemeData(
-        primaryColor: Color(0xFF6C63FF),
+        primaryColor: AppColors.primaryColor,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,

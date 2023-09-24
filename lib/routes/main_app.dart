@@ -4,6 +4,7 @@ import 'package:opinion_lk/models/survey.dart';
 import 'package:opinion_lk/models/user.dart';
 import 'package:opinion_lk/routes/surveys.dart';
 import 'package:opinion_lk/services/auth_services.dart';
+import 'package:opinion_lk/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
@@ -34,7 +35,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int currentPageIndex = 0;
   NavigationDestinationLabelBehavior labelBehavior =
-      NavigationDestinationLabelBehavior.onlyShowSelected;
+      NavigationDestinationLabelBehavior.alwaysHide;
 
   void getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -70,60 +71,80 @@ class _MainAppState extends State<MainApp> {
     Widget build(BuildContext context) {
       getUser();
 
-      return Scaffold(
-        bottomNavigationBar: NavigationBar(
-          labelBehavior: labelBehavior,
-          selectedIndex: currentPageIndex,
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.dashboard),
-              icon: Icon(Icons.dashboard_outlined),
-              label: 'Surveys',
+      return Theme(data: ThemeData(
+      // Define your custom styles here
+          primaryColor: AppColors.primaryColor, 
+          canvasColor: Colors.white,
+          navigationBarTheme: const NavigationBarThemeData(
+            backgroundColor: AppColors.secondaryColor, // Replace with your desired color
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            titleTextStyle: TextStyle(
+              color: AppColors.dark,
+              fontSize: 24,
+              fontFamily: 'DM Sans',
+              fontWeight: FontWeight.bold,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.bookmark),
-              icon: Icon(Icons.bookmark_border),
-              label: 'Saved',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.confirmation_number),
-              icon: Icon(Icons.confirmation_num_outlined),
-              label: 'Coupons',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.account_circle),
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'Profile',
-            ),
-          ],
+          ),
         ),
-        body: <Widget>[
-          Container(
-            alignment: Alignment.topCenter,
-            child: SurveysPage(),
-            // child: Saved(),
+      
+        child: Scaffold(
+          bottomNavigationBar: NavigationBar(
+            labelBehavior: labelBehavior,
+            selectedIndex: currentPageIndex,
+            onDestinationSelected: (int index) {
+              setState(() {
+                currentPageIndex = index;
+              });
+            },
+            destinations: const <Widget>[
+              NavigationDestination(
+                selectedIcon: Icon(Icons.dashboard),
+                icon: Icon(Icons.dashboard_outlined),
+                label: 'Surveys',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.bookmark),
+                icon: Icon(Icons.bookmark_border),
+                label: 'Saved',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.confirmation_number),
+                icon: Icon(Icons.confirmation_num_outlined),
+                label: 'Coupons',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.account_circle),
+                icon: Icon(Icons.account_circle_outlined),
+                label: 'Profile',
+              ),
+            ],
           ),
-          Container(
-            alignment: Alignment.center,
-            child: const Saved(),
-          ),
-          Container(
-            color: Colors.blue,
-            alignment: Alignment.center,
-            child: Coupons(),
-          ),
-          Container(
-            color: Colors.grey,
-            alignment: Alignment.center,
-            child: Profile(
-                user: Provider.of<UserProvider>(context, listen: false).user),
-          ),
-        ][currentPageIndex],
+          body: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              child: SurveysPage(),
+              // child: Saved(),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: const Saved(),
+            ),
+            Container(
+              color: Colors.blue,
+              alignment: Alignment.center,
+              child: Coupons(),
+            ),
+            Container(
+              color: Colors.grey,
+              alignment: Alignment.center,
+              child: Profile(
+                  user: Provider.of<UserProvider>(context, listen: false).user),
+            ),
+          ][currentPageIndex],
+        ),
       );
     }
 }
