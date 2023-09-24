@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:opinion_lk/models/login_response.dart';
 // import 'package:opinion_lk/routes/main_app.dart';
 import 'package:opinion_lk/models/user.dart';
+import 'package:opinion_lk/styles.dart';
+import 'package:opinion_lk/widgets/toast.dart';
 // import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,10 +38,23 @@ class AuthService {
 
       return true;
     } else if (response.statusCode == 401) {
-      Fluttertoast.showToast(
-        msg: "Please check your email and password",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
+      // Fluttertoast.showToast(
+      //   msg: "Please check your email and password",
+      //   toastLength: Toast.LENGTH_SHORT,
+      //   gravity: ToastGravity.BOTTOM,
+      // );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: CustomToast(
+            backgroundColor: AppColors.error,
+            foregroundColor: Colors.white,
+            message: 'Please check your email and password!',
+            iconData: Icons.error,
+          ),
+        ),
       );
     } else {
       // If the server did not return a 200 OK response,

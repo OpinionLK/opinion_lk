@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // routing information
-      initialRoute: isLoggedIn ? '/main-app' : '/login',
+      initialRoute: isLoggedIn ? '/main-app' : '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/login': (context) => LoginPage(),

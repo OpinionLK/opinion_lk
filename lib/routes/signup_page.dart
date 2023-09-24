@@ -4,6 +4,8 @@ import 'dart:convert'; //for jsonEncode
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:opinion_lk/routes/main_app.dart';
+import 'package:opinion_lk/styles.dart';
+import 'package:opinion_lk/widgets/toast.dart';
 
 Future<void> signupUser(BuildContext context, String firstName, String lastName,
     String email, String password) async {
@@ -23,13 +25,46 @@ Future<void> signupUser(BuildContext context, String firstName, String lastName,
   if (response.statusCode == 200) {
     // If the server returns a 200 OK response,
     // then parse the JSON.
-    Navigator.pushNamed(context, '/login');
+    // Fluttertoast.showToast(
+    //   msg: "Account created successfully",
+    //   toastLength: Toast.LENGTH_SHORT,
+    //   gravity: ToastGravity.BOTTOM,
+    // );
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: CustomToast(
+            backgroundColor: AppColors.accentColor,
+            foregroundColor: Colors.white,
+            message: 'Account created successfully',
+            iconData: Icons.task_alt,
+          ),
+        ),
+      );
+    Navigator.pushReplacementNamed(context, '/login');
   } else if (response.statusCode == 401) {
-    Fluttertoast.showToast(
-      msg: "Please check your details",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-    );
+    // Fluttertoast.showToast(
+    //   msg: "Please check your details",
+    //   toastLength: Toast.LENGTH_SHORT,
+    //   gravity: ToastGravity.BOTTOM,
+    //   backgroundColor: AppColors.primaryColor,
+    //   textColor: Colors.white,
+    // );
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: CustomToast(
+            backgroundColor: AppColors.error,
+            foregroundColor: Colors.white,
+            message: 'Please check your details',
+            iconData: Icons.error,
+          ),
+        ),
+      );
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
