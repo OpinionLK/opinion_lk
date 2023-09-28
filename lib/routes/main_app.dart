@@ -5,6 +5,7 @@ import 'package:opinion_lk/models/user.dart';
 import 'package:opinion_lk/routes/surveys.dart';
 import 'package:opinion_lk/services/auth_services.dart';
 import 'package:opinion_lk/styles.dart';
+import 'package:opinion_lk/widgets/toast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
@@ -51,13 +52,20 @@ class _MainAppState extends State<MainApp> {
       } else {
         // if user data is null, cl ear token from shared pref
         prefs.remove('token');
-
-        // show toast message here
-        Fluttertoast.showToast(
-          msg: "Please login again",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-        );
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: CustomToast(
+            backgroundColor: AppColors.error,
+            foregroundColor: Colors.white,
+            message: 'please login again',
+            iconData: Icons.error,
+          ),
+        ),
+      );
 
         // navigate to login page here
         Navigator.pushReplacementNamed(context, '/login');

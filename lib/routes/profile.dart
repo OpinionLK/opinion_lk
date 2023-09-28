@@ -35,12 +35,15 @@ class Profile extends StatelessWidget {
                   ),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      'https://ik.imagekit.io/7i3fql4kv7/survey_headers/alice-donovan-rouse-yu68fUQDvOI-unsplash.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),            ),
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network(
+                    user!.profilePicture.isEmpty 
+                      ? 'https://ik.imagekit.io/7i3fql4kv7/survey_headers/alice-donovan-rouse-yu68fUQDvOI-unsplash.jpg' 
+                      : user!.profilePicture,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

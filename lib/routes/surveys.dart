@@ -21,7 +21,7 @@ class _SurveysPageState extends State<SurveysPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Surveys'),
+        title: const Text('Surveys'),
       ),
       body: Center(
         child: FutureBuilder<List<Survey>>(
