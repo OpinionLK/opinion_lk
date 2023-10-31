@@ -141,12 +141,10 @@ class _MainAppState extends State<MainApp> {
               child: const Saved(),
             ),
             Container(
-              color: Colors.blue,
               alignment: Alignment.center,
-              child: Coupons(),
+              child: CouponsPage(),
             ),
             Container(
-              color: Colors.grey,
               alignment: Alignment.center,
               child: Profile(
                   user: Provider.of<UserProvider>(context, listen: false).user),
