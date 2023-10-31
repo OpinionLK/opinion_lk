@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert'; //for jsonEncode
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:opinion_lk/routes/login_page.dart';
 import 'package:opinion_lk/routes/main_app.dart';
 import 'package:opinion_lk/styles.dart';
 import 'package:opinion_lk/widgets/toast.dart';
@@ -314,6 +315,22 @@ class _SignupPageState extends State<SignupPage> {
                         'Create account'), // Show a progress indicator if _isLoading is true
               ),
             ),
+            Container(
+              child: TextButton(
+                child: const Text(
+                  'Already have an account? Log In',
+                ),
+                style: TextButton.styleFrom(
+                  primary: AppColors.dark, // replace with your actual color variable
+                ),
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                )
+            )
           ],
         ),
       ),

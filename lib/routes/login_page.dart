@@ -1,10 +1,12 @@
 // import 'dart:convert'; //for jsonEncode
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:opinion_lk/routes/signup_page.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:opinion_lk/routes/main_app.dart';
 import 'package:opinion_lk/services/auth_services.dart';
+import 'package:opinion_lk/styles.dart';
 
 // import 'package:opinion_lk/main.dart';
 // import 'package:opinion_lk/routes/surveys.dart';
@@ -176,6 +178,22 @@ class _LoginPageState extends State<LoginPage> {
                         'Log in'), // Show a progress indicator if _isLoading is true
               ),
             ),
+            Container(
+              child: TextButton(
+                child: const Text(
+                  "Don't an account yet? Sign up",
+                ),
+                style: TextButton.styleFrom(
+                  primary: AppColors.dark, // replace with your actual color variable
+                ),
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignupPage()),
+                    );
+                  },
+                )
+            )
           ],
         ),
       ),
