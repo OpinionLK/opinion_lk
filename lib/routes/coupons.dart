@@ -78,43 +78,75 @@ class CouponCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 8.0, 1.0, 8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(coupon.couponName, style: AppTextStyles.title),
-                      Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      //couponImage
+                      height: 90,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
+                        image: DecorationImage(
+                          image: NetworkImage(coupon.couponImage),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5.0, 8.0, 1.0, 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            splitDescription[0],
-                            style: AppTextStyles.normal,
+                        children: [
+                          Text(coupon.couponName, style: AppTextStyles.title),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                splitDescription[0],
+                                style: AppTextStyles.normal,
+                              ),
+                              if (splitDescription.length > 1)
+                                Text(
+                                  splitDescription[1],
+                                  style: AppTextStyles.normal,
+                                ),
+                            ],
                           ),
-                          if (splitDescription.length > 1)
-                            Text(
-                              splitDescription[1],
-                              style: AppTextStyles.normal,
-                            ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-        
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(1.0, 8.0, 10.0, 8.0),
-                  child: FilledButton(
-                    style: ElevatedButton.styleFrom(
-                      primary:
-                          AppColors.primaryColor, // This is your background color
                     ),
-                    onPressed: () {},
-                    child: Text('GET'),
-                  ),
-                ),
-              ],
+                  ],),
+                      
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(1.0, 8.0, 10.0, 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 60,
+                            child:const Text("120/300"),
+                          ),
+                          Container(
+                            height: 35,
+                            child: FilledButton(
+                              style: ElevatedButton.styleFrom(
+                                primary:
+                                    AppColors.primaryColor, // This is your background color
+                              ),
+                              onPressed: () {},
+                              child: Text('GET'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
             ),
           ),
         ),
