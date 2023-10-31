@@ -111,8 +111,8 @@ class Profile extends StatelessWidget {
                 endIndent: 20,
                 color: Colors.black,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

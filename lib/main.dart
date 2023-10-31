@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       theme: ThemeData(
+        fontFamily: 'DM Sans',
         primaryColor: AppColors.primaryColor,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSwatch(

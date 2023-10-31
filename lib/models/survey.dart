@@ -4,6 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:opinion_lk/models/question.dart';
+// import 'package:opinion_lk/routes/survey_form_page.dart';
+
 Survey SurveyFromJson(String str) => Survey.fromJson(json.decode(str));
 
 String SurveyToJson(Survey data) => json.encode(data.toJson());
@@ -17,7 +20,7 @@ class Survey {
     String creatorId;
     String approvalStatus;
     List<dynamic> tags;
-    List<dynamic> questions;
+    List<Question> questions;
     DateTime createdDate;
     List<dynamic> responses;
     List<dynamic> comments;
@@ -52,7 +55,9 @@ class Survey {
         creatorId: json["creatorID"],
         approvalStatus: json["approvalStatus"],
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
-        questions: List<dynamic>.from(json["questions"].map((x) => x)),
+        questions: (json['questions'] as List)
+          .map((questionJson) => Question.fromJson(questionJson))
+          .toList(),
         createdDate: DateTime.parse(json["created_date"]),
         responses: List<dynamic>.from(json["responses"].map((x) => x)),
         comments: List<dynamic>.from(json["comments"].map((x) => x)),
