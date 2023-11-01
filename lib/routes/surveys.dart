@@ -63,7 +63,7 @@ class SurveyCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SurveyFormPage(surveyId: survey.surveyId, surveyName: survey.surveyName),
+            builder: (context) => SurveyFormPage(surveyId: survey.surveyId, surveyName: survey.surveyName, surveyPoints: survey.points,),
           ),
         );
       },

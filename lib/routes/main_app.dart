@@ -113,11 +113,11 @@ class _MainAppState extends State<MainApp> {
                 icon: Icon(Icons.dashboard_outlined),
                 label: 'Surveys',
               ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.bookmark),
-                icon: Icon(Icons.bookmark_border),
-                label: 'Saved',
-              ),
+              // NavigationDestination(
+              //   selectedIcon: Icon(Icons.bookmark),
+              //   icon: Icon(Icons.bookmark_border),
+              //   label: 'Saved',
+              // ),
               NavigationDestination(
                 selectedIcon: Icon(Icons.confirmation_number),
                 icon: Icon(Icons.confirmation_num_outlined),
@@ -136,10 +136,10 @@ class _MainAppState extends State<MainApp> {
               child: SurveysPage(),
               // child: Saved(),
             ),
-            Container(
-              alignment: Alignment.center,
-              child: const Saved(),
-            ),
+            // Container(
+            //   alignment: Alignment.center,
+            //   child: const Saved(),
+            // ),
             Container(
               alignment: Alignment.center,
               child: CouponsPage(),

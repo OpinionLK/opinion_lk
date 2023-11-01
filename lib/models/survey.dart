@@ -24,6 +24,7 @@ class Survey {
     DateTime createdDate;
     List<dynamic> responses;
     List<dynamic> comments;
+    int points;
     // DateTime createdAt;
     // DateTime updatedAt;
     int v;
@@ -41,6 +42,7 @@ class Survey {
         required this.createdDate,
         required this.responses,
         required this.comments,
+        required this.points,
         // required this.createdAt,
         // required this.updatedAt,
         required this.v,
@@ -61,6 +63,7 @@ class Survey {
         createdDate: DateTime.parse(json["created_date"]),
         responses: List<dynamic>.from(json["responses"].map((x) => x)),
         comments: List<dynamic>.from(json["comments"].map((x) => x)),
+        points: json["points"],
         // createdAt: DateTime.parse(json["createdAt"]),
         // updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
@@ -79,6 +82,7 @@ class Survey {
         "created_date": createdDate.toIso8601String(),
         "responses": List<dynamic>.from(responses.map((x) => x)),
         "comments": List<dynamic>.from(comments.map((x) => x)),
+        "points": points,
         // "createdAt": createdAt.toIso8601String(),
         // "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
