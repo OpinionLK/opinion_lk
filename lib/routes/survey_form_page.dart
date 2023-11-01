@@ -14,7 +14,10 @@ class SurveyFormPage extends StatefulWidget {
   final surveyPoints;
 
   const SurveyFormPage(
-      {super.key, required this.surveyId, required this.surveyName, required this.surveyPoints});
+      {super.key,
+      required this.surveyId,
+      required this.surveyName,
+      required this.surveyPoints});
 
   @override
   _SurveyFormPageState createState() => _SurveyFormPageState();
@@ -54,8 +57,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
       const pointsUrl = 'http://10.0.2.2:3002/api/survey/addsurveypoints';
       final pointsBody = {
         //if null then 0
-        'points': points, 
-
+        'points': points,
       };
 
       final pointsResponse = await http.post(
@@ -67,7 +69,39 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
         body: jsonEncode(pointsBody),
       );
 
-      if (pointsResponse.statusCode != 200) {
+      if (pointsResponse.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Theme(
+              data: Theme.of(context).copyWith(dialogBackgroundColor: AppColors.secondaryColor),
+              child: AlertDialog(
+                title: const Text('Points Added',
+                    style: TextStyle(color: AppColors.dark)), // Set text color
+                content: Text("You have earned $points points",
+                    style: TextStyle(color: AppColors.dark)), // Set text color
+                actions: <Widget>[
+                  Container(
+                    width: 150.0,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                      ),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Return Home",
+                          style:
+                              TextStyle(color: Colors.white)), // Set text color
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      } else {
         throw Exception('Failed to add points');
       }
     } else {
@@ -85,7 +119,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Survey Form'),
+        title: const Text('Survey Form'),
       ),
       body: Column(
         children: <Widget>[
@@ -93,7 +127,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left:10.0),
+                padding: const EdgeInsets.only(left: 10.0),
                 child: Text(
                   widget.surveyName,
                   style: const TextStyle(
@@ -106,8 +140,8 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
-                  width:65,
-                  height:40,
+                  width: 65,
+                  height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -115,7 +149,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                   ),
                   child: Text(
                     widget.surveyPoints.toString() + ' Pts',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'DM Sans',
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -141,7 +175,8 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(snapshot.data!.questions[index].question,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         subtitle: snapshot
                                     .data!.questions[index].responseType ==
                                 'multiplechoice'
@@ -164,7 +199,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                                               .questions[index]
                                               .q_id] = newValue!;
                                         },
-                                        activeColor: Color(0xFF6259F5),
+                                        activeColor: const Color(0xFF6259F5),
                                       );
                                     },
                                   );
@@ -173,7 +208,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                             : snapshot.data!.questions[index].responseType ==
                                     'shorttext'
                                 ? Column(children: [
-                                    Gap(3),
+                                    const Gap(3),
                                     TextField(
                                       controller: textControllers[index],
                                       onChanged: (String newValue) {
@@ -218,11 +253,12 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                       AppColors.primaryColor, // This is your background color
                 ),
                 onPressed: () {
-                  submitResponses(widget.surveyId, responses, widget.surveyPoints);
+                  submitResponses(
+                      widget.surveyId, responses, widget.surveyPoints);
                 },
                 child: const Text("Submit")),
           ),
-          Gap(20)
+          const Gap(20)
         ],
       ),
     );
