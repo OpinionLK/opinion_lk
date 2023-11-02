@@ -50,9 +50,8 @@ class Profile extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.network(
-                      user!.profilePicture.isEmpty 
-                        ? 'https://ik.imagekit.io/7i3fql4kv7/survey_headers/alice-donovan-rouse-yu68fUQDvOI-unsplash.jpg' 
-                        : user!.profilePicture,
+                      user?.profilePicture 
+                        ?? 'https://ik.imagekit.io/7i3fql4kv7/survey_headers/alice-donovan-rouse-yu68fUQDvOI-unsplash.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -61,12 +60,12 @@ class Profile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(user!.firstname, style: AppTextStyles.header),
+                    Text(user?.firstname ??"FirstName", style: AppTextStyles.header),
                     SizedBox(width: 4),  
-                    Text(user!.lastname, style: AppTextStyles.header),
+                    Text(user?.lastname ??"Lastname", style: AppTextStyles.header),
                     ],
                 ),
-                Text(user!.email, style: AppTextStyles.subtitle),
+                Text(user?.email ??"Email", style: AppTextStyles.subtitle),
                 const Divider(
                   height: 20,
                   thickness: 1,

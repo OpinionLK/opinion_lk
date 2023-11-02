@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:opinion_lk/routes/surveys.dart';
 import 'package:opinion_lk/services/coupon_services.dart'; // Import the service
 import 'package:opinion_lk/models/coupon.dart';
-import 'package:opinion_lk/styles.dart'; // Import the model
+import 'package:opinion_lk/styles.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CouponsPage extends StatefulWidget {
   @override
@@ -120,37 +124,111 @@ class CouponCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],),
-                      
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(1.0, 8.0, 10.0, 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 60,
-                            child:const Text("120/300"),
-                          ),
-                          Container(
-                            height: 35,
-                            child: FilledButton(
-                              style: ElevatedButton.styleFrom(
-                                primary:
-                                    AppColors.primaryColor, // This is your background color
-                              ),
-                              onPressed: () {},
-                              child: Text('GET'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(1.0, 8.0, 10.0, 8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 60,
+                        child: const Text("120/300"),
+                      ),
+                      Container(
+                        height: 35,
+                        child: FilledButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: AppColors
+                                .primaryColor, // This is your background color
+                          ),
+                          onPressed: () {
+                            redeemCoupons(coupon.id);
+                          },
+                          child: Text('GET'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+// void redeemConfirmation(String id) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return Theme(
+//         data: Theme.of(context).copyWith(dialogBackgroundColor: AppColors.secondaryColor),
+//         child: AlertDialog(
+//           title: const Text('Are you sure?',
+//               style: TextStyle(color: AppColors.dark)), // Set text color
+//           content: Text("You will be redeeming this coupon for $points points",
+//               style: TextStyle(color: AppColors.dark)), // Set text color
+//           actions: <Widget>[
+//             Row(children: [
+//               Container(
+//                 width: 150.0,
+//                 child: ElevatedButton(
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: AppColors.secondaryColor,
+//                   ),
+//                   onPressed: () async {
+//                     Navigator.of(context).pop();
+//                   },
+//                   child: const Text("Browse more",
+//                       style:
+//                           TextStyle(color: AppColors.primaryColor)), // Set text color
+//                 ),
+//               ),
+//               Container(
+//                 width: 150.0,
+//                 child: ElevatedButton(
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: AppColors.primaryColor,
+//                   ),
+//                   onPressed: () async {
+//                     redeemCoupons(String id);
+//                   },
+//                   child: const Text("Redeem",
+//                       style:
+//                           TextStyle(color: Colors.white)), // Set text color
+//                 ),
+//               ),
+//             ],)
+//           ],
+//         ),
+//       );
+//     },
+//   );
+// }
+
+Future<void> redeemCoupons(String id) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+  const String redeemURL = "http://10.0.2.2:3002/api/user/redeemCoupon";
+  final body = {
+    "_id": id,
+  };
+  final redeemresponse = await http.post(
+    Uri.parse(redeemURL),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    },
+    body: jsonEncode(body),
+  );
+
+  if (redeemresponse.statusCode == 200) {
+    print("Coupon Redeemed");
+  } else {
+    throw Exception('Failed to redeem coupon from API');
   }
 }

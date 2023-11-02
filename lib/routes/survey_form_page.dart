@@ -41,8 +41,6 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
       "response": data,
     };
 
-    print(body);
-
     final response = await http.post(
       Uri.parse(url),
       headers: {

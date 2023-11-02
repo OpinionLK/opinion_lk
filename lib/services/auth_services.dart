@@ -14,7 +14,7 @@ class AuthService {
   Future<bool> loginUser(BuildContext context, String email, String password) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:3002/api/auth/login'),
-      // Uri.parse('http://localhost:3002/api/auth/login'),
+      // Uri.parse('http://opinionlkback.live/api/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
