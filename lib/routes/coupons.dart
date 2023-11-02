@@ -1,14 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:opinion_lk/models/user.dart';
+import 'package:opinion_lk/providers/user_provider.dart';
 import 'package:opinion_lk/routes/surveys.dart';
 import 'package:opinion_lk/services/coupon_services.dart'; // Import the service
 import 'package:opinion_lk/models/coupon.dart';
 import 'package:opinion_lk/styles.dart';
 import 'package:http/http.dart' as http;
+import 'package:opinion_lk/widgets/toast.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:opinion_lk/services/auth_services.dart';
 
 class CouponsPage extends StatefulWidget {
+  late final User? user;
   @override
   _CouponsState createState() => _CouponsState();
 }
@@ -21,6 +27,7 @@ class _CouponsState extends State<CouponsPage> {
     super.initState();
     futureCoupons = CouponService().fetchCoupons();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +68,7 @@ class CouponCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     String couponDescription = coupon.description;
     List<String> splitDescription = splitIntoLines(couponDescription, 44);
     return InkWell(
@@ -134,7 +142,7 @@ class CouponCard extends StatelessWidget {
                       Container(
                         height: 30,
                         width: 60,
-                        child: const Text("120/300"),
+                        child: Text(coupon.points.toString()),
                       ),
                       Container(
                         height: 35,
@@ -144,7 +152,7 @@ class CouponCard extends StatelessWidget {
                                 .primaryColor, // This is your background color
                           ),
                           onPressed: () {
-                            redeemCoupons(coupon.id);
+                            redeemCoupons(coupon.id, context);
                           },
                           child: Text('GET'),
                         ),
@@ -210,9 +218,9 @@ class CouponCard extends StatelessWidget {
 //   );
 // }
 
-Future<void> redeemCoupons(String id) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+Future<void> redeemCoupons(String id, context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
   const String redeemURL = "http://10.0.2.2:3002/api/user/redeemCoupon";
   final body = {
     "_id": id,
@@ -227,8 +235,23 @@ Future<void> redeemCoupons(String id) async {
   );
 
   if (redeemresponse.statusCode == 200) {
-    print("Coupon Redeemed");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: CustomToast(backgroundColor: AppColors.primaryColor,foregroundColor: Colors.white, message: 'Coupon redeemed', iconData: Icons.check_circle)  
+          ),
+        );
+
   } else {
-    throw Exception('Failed to redeem coupon from API');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            content: CustomToast(backgroundColor: AppColors.error,foregroundColor: Colors.white, message: 'Unable to redeem coupon', iconData: Icons.error)
+            ),
+    );
   }
 }
